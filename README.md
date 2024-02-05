@@ -1,27 +1,35 @@
-# SecurityFront
+L'objectif de cette deuxieme phase du projet et de consommer le backend du projet S3CUR1TY, L'application Angular doit intégrer les mécanismes de sécurité fournis par Spring Security, notamment l'utilisation de guards, intercepteurs et resolvers.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
+​
 
-## Development server
+## Fonctionnalités Requises
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+​
 
-## Code scaffolding
+## Authentification et Autorisation:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Les utilisateurs doivent pouvoir s'authentifier. Les utilisateurs doivent être redirigés vers une page de connexion si l'authentification échoue. L'accès à certaines fonctionnalités de l'application doit être restreint en fonction des rôles et autorités définis dans Spring Security.
 
-## Build
+​
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Gestion des Rôles:
 
-## Running unit tests
+Afficher les fonctionnalités disponibles en fonction des rôles de l'utilisateur. Les utilisateurs avec des rôles spécifiques doivent avoir accès à des fonctionnalités correspondantes.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+​
 
-## Running end-to-end tests
+## Utilisation des Guards:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Utiliser des guards pour protéger les routes de l'application en fonction des rôles et des autorisations de l'utilisateur. Rediriger les utilisateurs non authentifiés vers la page de connexion. Restreindre l'accès aux routes en fonction des rôles et des autorisations.
 
-## Further help
+​
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Intercepteurs:
+
+Utiliser des intercepteurs pour gérer les requêtes HTTP sortantes. Ajouter les en-têtes d'authentification nécessaires aux requêtes sortantes. Intercepter les réponses HTTP pour gérer les erreurs d'authentification ou d'autorisation.
+
+​
+
+## Resolvers:
+
+Utiliser des resolvers pour pré-charger les données nécessaires avant d'activer une route. Les resolvers doivent vérifier l'authentification et l'autorisation de l'utilisateur avant de charger les données.
