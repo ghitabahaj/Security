@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  fname: string = '';
-  lname: string = '';
+  firstname: string = '';
+  lastname: string = '';
   email: string = '';
   password: string = '';
 
@@ -19,8 +19,8 @@ export class RegisterComponent implements OnInit {
 
   handleRegister() {
     const userData = {
-      fname: this.fname,
-      lname: this.lname,
+      firstname: this.firstname,
+      lastname: this.lastname,
       email: this.email,
       password: this.password
     };
