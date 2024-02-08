@@ -1,10 +1,10 @@
 <div class="form-container">
     <h3 class="text-center title mb-2">Login</h3>
     <p class="text-center text-secondary">Welcome back!</p>
-    <form >
+    <form [formGroup]="formLogin" (ngSubmit)="handleLogin()">
       <div>
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Your Email" formControlName="username" required>
+        <input type="email" id="email" name="email" placeholder="Your Email" formControlName="email" required>
       </div>
       <div>
         <label for="password">Password</label>
