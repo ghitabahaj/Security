@@ -7,6 +7,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AppHttpInterceptor } from './services/appHttp/app-http.interceptor';
 
 
 @NgModule({
@@ -16,13 +20,20 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RegisterComponent,
     ForgetPasswordComponent,
     NavbarComponent,
-    NotAuthorizedComponent
+    NotAuthorizedComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
+
   ],
-  providers: [],
+  providers: [ 
+    {provide : HTTP_INTERCEPTORS, useClass : AppHttpInterceptor, multi : true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

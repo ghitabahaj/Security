@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
 import { jwtDecode } from "jwt-decode";
 import { AppStateService } from '../appState/app-state.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,47 +11,55 @@ import { AppStateService } from '../appState/app-state.service';
 export class AuthService {
   private token: string | null = null;
 
-  constructor(private http: HttpClient, private appState: AppStateService) {
   
-    this.token = localStorage.getItem('token');
+
+  constructor(private router: Router ,private http: HttpClient, private appState: AppStateService) {
+    this.token = localStorage.getItem('access_token');
   }
 
-  async login(username: string, password: string) {
+  async login(email: string, password: string) {
     try {
-      const loginResponse = await firstValueFrom(this.http.post<any>("http://localhost:8080/login", {
-        username: username,
+      const loginResponse = await firstValueFrom(this.http.post<any>("http://localhost:8080/api/v1/auth/authenticate", {
+        email: email,
         password: password
       }));
-
-      const token = loginResponse.token;
-
-      localStorage.setItem('token', token);
-
-      this.token = token;
-
-      const decodedJwt: any = jwtDecode(token);
-
+  
+      // Check if the loginResponse contains access_token and refresh_token properties
+      if (!loginResponse || !loginResponse.access_token || !loginResponse.refresh_token) {
+        throw new Error("Invalid login response: Tokens not found");
+      }
+  
+      const accessToken = loginResponse.access_token;
+      const refreshToken = loginResponse.refresh_token;
+  
+      localStorage.setItem('token', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+  
+      // Set the access token in the AuthService
+      this.token = accessToken;
+  
+      const decodedJwt: any = jwtDecode(accessToken);
+  
       this.appState.setAuthState({
         isAuthenticated: true,
         username: decodedJwt.sub,
         roles: decodedJwt.roles,
-        token: token
+        token: accessToken
       });
-
+  
       return true; 
     } catch (error) {
       console.error(error);
       return Promise.reject("Login failed. Please check your credentials."); 
     }
   }
+  
 
   logout() {
   
-    localStorage.removeItem('token');
-
+    localStorage.removeItem('access_token');
 
     this.token = null;
-
   
     this.appState.setAuthState({
       isAuthenticated: false,
@@ -58,6 +67,7 @@ export class AuthService {
       roles: undefined,
       token: undefined
     });
+    this.router.navigateByUrl('/login');
   }
 
   isAuthenticated(): boolean {
