@@ -11,6 +11,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppHttpInterceptor } from './services/appHttp/app-http.interceptor';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AppHttpInterceptor } from './services/appHttp/app-http.interceptor';
     ForgetPasswordComponent,
     NavbarComponent,
     NotAuthorizedComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
