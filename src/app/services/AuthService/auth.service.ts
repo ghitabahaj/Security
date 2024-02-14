@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private token: string | null = null;
-
+  private roles: string[] = [];
   
 
   constructor(private router: Router ,private http: HttpClient, private appState: AppStateService) {
@@ -37,13 +37,15 @@ export class AuthService {
   
       // Set the access token in the AuthService
       this.token = accessToken;
+      
   
       const decodedJwt: any = jwtDecode(accessToken);
+      this.roles = decodedJwt.roles || [];
   
       this.appState.setAuthState({
         isAuthenticated: true,
         username: decodedJwt.sub,
-        roles: decodedJwt.roles,
+        roles: this.roles, 
         token: accessToken
       });
   
@@ -64,7 +66,7 @@ export class AuthService {
     this.appState.setAuthState({
       isAuthenticated: false,
       username: undefined,
-      roles: undefined,
+      roles: [],
       token: undefined
     });
     this.router.navigateByUrl('/login');
@@ -74,4 +76,9 @@ export class AuthService {
    
     return !!this.token;
   }
+
+  getUserRoles(): string[] {
+    return this.roles;
+  }
+
 }
