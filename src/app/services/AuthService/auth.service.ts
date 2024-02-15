@@ -14,7 +14,7 @@ export class AuthService {
   
 
   constructor(private router: Router ,private http: HttpClient, private appState: AppStateService) {
-    this.token = localStorage.getItem('access_token');
+    this.token = localStorage.getItem('token');
   }
 
   async login(email: string, password: string) {
@@ -28,6 +28,8 @@ export class AuthService {
       if (!loginResponse || !loginResponse.access_token || !loginResponse.refresh_token) {
         throw new Error("Invalid login response: Tokens not found");
       }
+
+      console.log(loginResponse);
   
       const accessToken = loginResponse.access_token;
       const refreshToken = loginResponse.refresh_token;

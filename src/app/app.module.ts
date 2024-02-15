@@ -12,6 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppHttpInterceptor } from './services/appHttp/app-http.interceptor';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { ManagerComponent } from './components/manager/manager.component';
+import { UserComponent } from './components/user/user.component';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import { ProfileComponent } from './components/profile/profile.component';
     NavbarComponent,
     NotAuthorizedComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminComponent,
+    ManagerComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
